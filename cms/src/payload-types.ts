@@ -76,6 +76,7 @@ export interface Config {
     ciudades: Ciudade;
     vacantes: Vacante;
     depoimentos: Depoimento;
+    sucursales: Sucursale;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -94,6 +95,7 @@ export interface Config {
     ciudades: CiudadesSelect<false> | CiudadesSelect<true>;
     vacantes: VacantesSelect<false> | VacantesSelect<true>;
     depoimentos: DepoimentosSelect<false> | DepoimentosSelect<true>;
+    sucursales: SucursalesSelect<false> | SucursalesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -493,6 +495,34 @@ export interface Depoimento {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sucursales".
+ */
+export interface Sucursale {
+  id: number;
+  name: string;
+  slug?: string | null;
+  image?: (number | null) | Media;
+  city?: (number | null) | Ciudade;
+  businessHours?: string | null;
+  googleMapsUrl?: string | null;
+  coordinates?: {
+    lat?: number | null;
+    lng?: number | null;
+  };
+  managerContactLink?: string | null;
+  /**
+   * Para solicitar asistencia técnica o ver el estado de una asistencia.
+   */
+  serviceCoordinatorPhone?: string | null;
+  /**
+   * Si la sucursal no tiene un número propio, se usa el *10000 (gratuito, de la empresa).
+   */
+  callCenterPhone?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -550,6 +580,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'depoimentos';
         value: number | Depoimento;
+      } | null)
+    | ({
+        relationTo: 'sucursales';
+        value: number | Sucursale;
       } | null)
     | ({
         relationTo: 'media';
@@ -784,6 +818,29 @@ export interface DepoimentosSelect<T extends boolean = true> {
   companyArea?: T;
   comment?: T;
   photo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sucursales_select".
+ */
+export interface SucursalesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  city?: T;
+  businessHours?: T;
+  googleMapsUrl?: T;
+  coordinates?:
+    | T
+    | {
+        lat?: T;
+        lng?: T;
+      };
+  managerContactLink?: T;
+  serviceCoordinatorPhone?: T;
+  callCenterPhone?: T;
   updatedAt?: T;
   createdAt?: T;
 }

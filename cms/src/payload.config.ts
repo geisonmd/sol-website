@@ -14,6 +14,7 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Planes } from './collections/Planes'
 import { Posts } from './collections/Posts'
+import { Sucursales } from './collections/Sucursales'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Vacantes } from './collections/Vacantes'
@@ -39,6 +40,7 @@ export default buildConfig({
     Ciudades,
     Vacantes,
     Depoimentos,
+    Sucursales,
     Media,
     Users,
   ],
