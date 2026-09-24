@@ -7,8 +7,11 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Categories } from './collections/Categories'
+import { Ciudades } from './collections/Ciudades'
+import { Departamentos } from './collections/Departamentos'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Planes } from './collections/Planes'
 import { Posts } from './collections/Posts'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
@@ -24,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Pages, Posts, Categories, Tags, Media, Users],
+  collections: [Pages, Posts, Categories, Tags, Planes, Departamentos, Ciudades, Media, Users],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

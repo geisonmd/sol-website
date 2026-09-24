@@ -71,6 +71,9 @@ export interface Config {
     posts: Post;
     categories: Category;
     tags: Tag;
+    planes: Plane;
+    departamentos: Departamento;
+    ciudades: Ciudade;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -84,6 +87,9 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    planes: PlanesSelect<false> | PlanesSelect<true>;
+    departamentos: DepartamentosSelect<false> | DepartamentosSelect<true>;
+    ciudades: CiudadesSelect<false> | CiudadesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -305,6 +311,59 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "planes".
+ */
+export interface Plane {
+  id: number;
+  title: string;
+  slug?: string | null;
+  tipo: 'fibra' | 'xtreme';
+  /**
+   * Solo aplica a planes de Fibra Óptica.
+   */
+  categoriaFibra?: ('go-home' | 'business' | 'cooperativo' | 'enterprise') | null;
+  download: number;
+  upload: number;
+  priceUSD: number;
+  priceGs?: number | null;
+  wifiAccessPoints?: number | null;
+  firstMonthFree?: boolean | null;
+  ports?: string | null;
+  idealFor: ('casa' | 'empresa')[];
+  zonaUrbana?: boolean | null;
+  zonaRural?: boolean | null;
+  /**
+   * Ciudades donde este plan está disponible.
+   */
+  coverageCities?: (number | Ciudade)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ciudades".
+ */
+export interface Ciudade {
+  id: number;
+  name: string;
+  departamento: number | Departamento;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departamentos".
+ */
+export interface Departamento {
+  id: number;
+  name: string;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -342,6 +401,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'planes';
+        value: number | Plane;
+      } | null)
+    | ({
+        relationTo: 'departamentos';
+        value: number | Departamento;
+      } | null)
+    | ({
+        relationTo: 'ciudades';
+        value: number | Ciudade;
       } | null)
     | ({
         relationTo: 'media';
@@ -455,6 +526,50 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "planes_select".
+ */
+export interface PlanesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  tipo?: T;
+  categoriaFibra?: T;
+  download?: T;
+  upload?: T;
+  priceUSD?: T;
+  priceGs?: T;
+  wifiAccessPoints?: T;
+  firstMonthFree?: T;
+  ports?: T;
+  idealFor?: T;
+  zonaUrbana?: T;
+  zonaRural?: T;
+  coverageCities?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departamentos_select".
+ */
+export interface DepartamentosSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ciudades_select".
+ */
+export interface CiudadesSelect<T extends boolean = true> {
+  name?: T;
+  departamento?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;

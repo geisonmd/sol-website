@@ -2,6 +2,8 @@ import type { Field } from 'payload'
 
 const formatSlug = (val: string): string =>
   val
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // strip accents (á→a, ñ stays via combining tilde removal → n)
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_]+/g, '-')
