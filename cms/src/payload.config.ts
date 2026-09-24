@@ -9,12 +9,14 @@ import sharp from 'sharp'
 import { Categories } from './collections/Categories'
 import { Ciudades } from './collections/Ciudades'
 import { Departamentos } from './collections/Departamentos'
+import { Depoimentos } from './collections/Depoimentos'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Planes } from './collections/Planes'
 import { Posts } from './collections/Posts'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
+import { Vacantes } from './collections/Vacantes'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -27,7 +29,19 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Pages, Posts, Categories, Tags, Planes, Departamentos, Ciudades, Media, Users],
+  collections: [
+    Pages,
+    Posts,
+    Categories,
+    Tags,
+    Planes,
+    Departamentos,
+    Ciudades,
+    Vacantes,
+    Depoimentos,
+    Media,
+    Users,
+  ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -44,7 +58,7 @@ export default buildConfig({
   csrf: [process.env.FRONTEND_URL || 'http://localhost:4321'].filter(Boolean),
   plugins: [
     seoPlugin({
-      collections: ['posts', 'pages'],
+      collections: ['posts', 'pages', 'vacantes'],
       uploadsCollection: 'media',
       tabbedUI: true,
     }),

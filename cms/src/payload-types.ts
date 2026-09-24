@@ -74,6 +74,8 @@ export interface Config {
     planes: Plane;
     departamentos: Departamento;
     ciudades: Ciudade;
+    vacantes: Vacante;
+    depoimentos: Depoimento;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -90,6 +92,8 @@ export interface Config {
     planes: PlanesSelect<false> | PlanesSelect<true>;
     departamentos: DepartamentosSelect<false> | DepartamentosSelect<true>;
     ciudades: CiudadesSelect<false> | CiudadesSelect<true>;
+    vacantes: VacantesSelect<false> | VacantesSelect<true>;
+    depoimentos: DepoimentosSelect<false> | DepoimentosSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -364,6 +368,131 @@ export interface Departamento {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacantes".
+ */
+export interface Vacante {
+  id: number;
+  title: string;
+  slug?: string | null;
+  featuredImage?: (number | null) | Media;
+  publishedAt: string;
+  applicationDeadline?: string | null;
+  isOpen?: boolean | null;
+  city?: (number | null) | Ciudade;
+  workMode?: ('presencial' | 'remoto' | 'hibrido') | null;
+  employmentType?: ('efectivo' | 'temporal' | 'pasantia' | 'freelance') | null;
+  pcdFriendly?: boolean | null;
+  description?: {
+    enabled?: boolean | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  responsibilities?: {
+    enabled?: boolean | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  requirements?: {
+    enabled?: boolean | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  additionalInfo?: {
+    enabled?: boolean | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  hiringProcess?: {
+    enabled?: boolean | null;
+    steps?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  showCompanyInfo?: boolean | null;
+  showRealTimeCTA?: boolean | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "depoimentos".
+ */
+export interface Depoimento {
+  id: number;
+  clientName: string;
+  city: string;
+  companyArea?: string | null;
+  comment: string;
+  photo: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -413,6 +542,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'ciudades';
         value: number | Ciudade;
+      } | null)
+    | ({
+        relationTo: 'vacantes';
+        value: number | Vacante;
+      } | null)
+    | ({
+        relationTo: 'depoimentos';
+        value: number | Depoimento;
       } | null)
     | ({
         relationTo: 'media';
@@ -576,6 +713,82 @@ export interface CiudadesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacantes_select".
+ */
+export interface VacantesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  featuredImage?: T;
+  publishedAt?: T;
+  applicationDeadline?: T;
+  isOpen?: T;
+  city?: T;
+  workMode?: T;
+  employmentType?: T;
+  pcdFriendly?: T;
+  description?:
+    | T
+    | {
+        enabled?: T;
+        content?: T;
+      };
+  responsibilities?:
+    | T
+    | {
+        enabled?: T;
+        content?: T;
+      };
+  requirements?:
+    | T
+    | {
+        enabled?: T;
+        content?: T;
+      };
+  additionalInfo?:
+    | T
+    | {
+        enabled?: T;
+        content?: T;
+      };
+  hiringProcess?:
+    | T
+    | {
+        enabled?: T;
+        steps?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+      };
+  showCompanyInfo?: T;
+  showRealTimeCTA?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "depoimentos_select".
+ */
+export interface DepoimentosSelect<T extends boolean = true> {
+  clientName?: T;
+  city?: T;
+  companyArea?: T;
+  comment?: T;
+  photo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -720,6 +933,21 @@ export interface SiteSetting {
         id?: string | null;
       }[]
     | null;
+  companyBlurb?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -752,6 +980,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
+  companyBlurb?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

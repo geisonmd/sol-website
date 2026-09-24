@@ -54,5 +54,10 @@ export const SiteSettings: GlobalConfig = {
         { name: 'url', type: 'text', required: true },
       ],
     },
+    {
+      name: 'companyBlurb',
+      label: 'Texto institucional (usado en páginas de vacantes, "Somos una de las mayores...")',
+      type: 'richText',
+    },
   ],
 }
