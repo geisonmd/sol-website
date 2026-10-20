@@ -4,7 +4,7 @@ export const Depoimentos: CollectionConfig = {
   slug: 'depoimentos',
   admin: {
     useAsTitle: 'clientName',
-    defaultColumns: ['clientName', 'city', 'companyArea'],
+    defaultColumns: ['clientName', 'city', 'yearsAsClient'],
   },
   access: {
     read: () => true,
@@ -19,13 +19,14 @@ export const Depoimentos: CollectionConfig = {
     {
       name: 'city',
       label: 'Ciudad',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'ciudades',
       required: true,
     },
     {
-      name: 'companyArea',
-      label: 'Área de empresa',
-      type: 'text',
+      name: 'yearsAsClient',
+      label: 'Años de empresa (como cliente)',
+      type: 'number',
     },
     {
       name: 'comment',
