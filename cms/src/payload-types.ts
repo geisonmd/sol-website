@@ -297,6 +297,10 @@ export interface User {
   roles: ('admin' | 'editor')[];
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  hasAPIKey?: boolean | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -486,8 +490,8 @@ export interface Vacante {
 export interface Depoimento {
   id: number;
   clientName: string;
-  city: string;
-  companyArea?: string | null;
+  city: number | Ciudade;
+  yearsAsClient?: number | null;
   comment: string;
   photo: number | Media;
   updatedAt: string;
@@ -815,7 +819,7 @@ export interface VacantesSelect<T extends boolean = true> {
 export interface DepoimentosSelect<T extends boolean = true> {
   clientName?: T;
   city?: T;
-  companyArea?: T;
+  yearsAsClient?: T;
   comment?: T;
   photo?: T;
   updatedAt?: T;
@@ -906,6 +910,10 @@ export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   updatedAt?: T;
   createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  hasAPIKey?: T;
   email?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
