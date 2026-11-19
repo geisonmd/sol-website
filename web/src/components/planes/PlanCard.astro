@@ -1,0 +1,64 @@
+---
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import IconDownload from 'lucide-static/icons/arrow-down-to-line.svg?raw'
+import IconUpload from 'lucide-static/icons/arrow-up-from-line.svg?raw'
+
+interface Plan {
+  id: number
+  title: string
+  slug: string
+  download: number
+  upload: number
+  priceUSD: number
+  priceGs?: number | null
+}
+
+interface Props {
+  plan: Plan
+}
+const { plan } = Astro.props
+
+function formatGs(n?: number | null) {
+  if (!n) return null
+  return new Intl.NumberFormat('es-PY').format(n) + ' Gs'
+}
+---
+
+<div class="flex w-full max-w-[280px] flex-col rounded-3xl border border-[#e6e6e6] bg-white">
+  <div class="flex flex-col items-center gap-2 px-4 py-6 text-center">
+    <p class="font-sans text-base tracking-[-0.32px] text-[#808080]">{plan.download} Mbps</p>
+    <p class="font-sans text-2xl tracking-[-0.44px] text-black">{plan.title}</p>
+  </div>
+  <div class="h-px w-full bg-[#e6e6e6]"></div>
+  <div class="flex flex-col gap-4 p-4">
+    <div class="flex flex-col gap-3 px-4 py-2">
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 font-sans text-base tracking-[-0.32px] text-black">
+          <span class="size-6 text-[#ed8419]" set:html={IconDownload} />
+          Download
+        </span>
+        <span class="font-sans text-base tracking-[-0.32px] text-black">{plan.download} Mbps</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 font-sans text-base tracking-[-0.32px] text-black">
+          <span class="size-6 text-[#ed8419]" set:html={IconUpload} />
+          Upload
+        </span>
+        <span class="font-sans text-base tracking-[-0.32px] text-black">{plan.upload} Mbps</span>
+      </div>
+    </div>
+    <div class="flex flex-col items-center">
+      {plan.priceGs && <p class="font-sans text-sm text-[#808080]">{formatGs(plan.priceGs)}</p>}
+      <p class="font-sans text-[32px] tracking-[-0.64px] text-black">
+        {plan.priceUSD.toFixed(2).replace('.', ',')} USD
+      </p>
+    </div>
+    <a
+      href={`https://wa.me/595983550110?text=${encodeURIComponent(`Hola, me interesa el ${plan.title}`)}`}
+      class="font-franklin-medium flex items-center justify-center gap-2 rounded-[35px] bg-[#25d366] px-8 py-2.5 text-base tracking-[-0.32px] text-[#181818]"
+    >
+      Contratar Plan
+      <img src={ArrowDiagonal.src} alt="" class="size-6" />
+    </a>
+  </div>
+</div>

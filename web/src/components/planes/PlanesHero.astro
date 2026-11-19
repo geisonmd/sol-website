@@ -1,0 +1,21 @@
+---
+import TitleBadge from '../../assets/icons/title-badge.svg'
+
+interface Props {
+  title: string
+  note?: string
+}
+const { title, note } = Astro.props
+---
+
+<section class="relative flex items-center justify-center overflow-hidden bg-white py-16">
+  <div
+    class="pointer-events-none absolute -left-40 -top-40 size-[550px] rounded-full bg-[#ed8419]/10 blur-[120px]"
+  >
+  </div>
+  <div class="relative flex w-full max-w-[700px] flex-col items-center gap-4 text-center">
+    <img src={TitleBadge.src} alt="" class="size-12" />
+    <h1 class="font-sans text-5xl leading-[1.3] tracking-[-1px] text-black">{title}</h1>
+    {note && <p class="font-sans text-base text-[#808080]">{note}</p>}
+  </div>
+</section>

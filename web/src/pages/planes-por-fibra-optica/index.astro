@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
+import PlanesHero from '../../components/planes/PlanesHero.astro'
+import PlanesBeneficios from '../../components/planes/PlanesBeneficios.astro'
+import PlanCard from '../../components/planes/PlanCard.astro'
+import Testemunial from '../../components/home/Testemunial.astro'
+import Faq from '../../components/home/Faq.astro'
+import Cta from '../../components/home/Cta.astro'
+import IconCheck from 'lucide-static/icons/check.svg?raw'
+import { fetchCollection } from '../../lib/payload'
+
+interface Plan {
+  id: number
+  title: string
+  slug: string
+  tipo: 'fibra' | 'xtreme'
+  categoriaFibra?: 'go-home' | 'business' | 'cooperativo' | 'enterprise' | null
+  download: number
+  upload: number
+  priceUSD: number
+  priceGs?: number | null
+}
+
+const planes = await fetchCollection<Plan>('planes', {
+  'where[tipo][equals]': 'fibra',
+  sort: 'priceUSD',
+})
+
+const categories = [
+  {
+    key: 'go-home',
+    label: 'Planes Home',
+    title: 'Planes de Fibra Óptica Go Home',
+    featuresLabel: 'Beneficios únicos del plan Go Home Prime',
+    features: [
+      'Instalación con ONU HUAWEI K662C',
+      'Primer mes grátis',
+      '1 wifi dual band extra',
+      'Seguro de equipos',
+      'Asistencias Gratuitas',
+      'Derecho a 1 cambio de local',
+    ],
+  },
+  {
+    key: 'business',
+    label: 'Planes Business',
+    title: 'Planes de Fibra Óptica Business',
+    featuresLabel: 'Características',
+    features: [
+      'Instalación con equipos y firewall Mikrotik',
+      'Primer mes es grátis',
+      '1 wifi dual band extra',
+      'Seguro de equipos',
+      'Asistencias Gratuitas',
+      'Derecho a 1 cambio de local',
+      'VPN Gratuito para sucursales',
+      'Soporte técnico todos los días 7 - 18hrs',
+    ],
+  },
+  {
+    key: 'cooperativo',
+    label: 'Planes Cooperativo',
+    title: 'Planes de Fibra Óptica Cooperativo',
+    featuresLabel: 'Características',
+    features: [
+      'Instalación con equipos y firewall Mikrotik',
+      'Grupo exclusivo de WhatsApp para soporte',
+      'Cobertura wifi mesh',
+      'VPN Gratuito para sucursales',
+      'Soporte técnico todos los días 7 - 18hrs',
+      'Seguro de equipos',
+      'Asistencias Gratuitas',
+      '4 correos corporativos @sol.com.py',
+    ],
+  },
+  {
+    key: 'enterprise',
+    label: 'Planes Enterprise',
+    title: 'Planes de Fibra Óptica Enterprise',
+    featuresLabel: 'Características',
+    features: [
+      'Instalación con equipos y firewall Mikrotik',
+      'Asesoría completa de la red',
+      'Grupo exclusivo de WhatsApp para soporte',
+      'Cobertura wifi mesh Ubiquiti',
+      'VPN Gratuito para sucursales',
+      'Soporte técnico todos los días 7 - 18hrs',
+      'Seguro de equipos',
+      'Asistencias Gratuitas',
+      'IP Pública',
+    ],
+  },
+] as const
+
+const planesByCategory = Object.fromEntries(
+  categories.map((c) => [c.key, planes.filter((p) => p.categoriaFibra === c.key)]),
+)
+---
+
+<BaseLayout
+  title="Planes por Fibra Óptica"
+  description="Conozca nuestros planes de internet de fibra óptica"
+>
+  <SiteHeader />
+  <PlanesHero title="Conozca nuestros planes de fibra óptica" />
+  <PlanesBeneficios />
+
+  {
+    categories.map((cat) => (
+      <section class="flex items-center justify-center border-t border-[#e6e6e6] bg-white">
+        <div class="flex w-full max-w-[1216px] flex-col gap-16 py-16">
+          <div class="flex flex-col gap-2">
+            <p class="font-franklin-medium text-sm tracking-[0.1em] text-[#ed8419] uppercase">
+              {cat.label}
+            </p>
+            <p class="font-sans text-4xl leading-[1.3] tracking-[-0.8px] text-black">
+              {cat.title}
+            </p>
+          </div>
+          <div class="flex flex-col gap-6 rounded-3xl bg-[#fafafa] p-8">
+            <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+              {cat.featuresLabel}
+            </p>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+              {cat.features.map((f) => (
+                <span class="flex items-center gap-3 font-sans text-base tracking-[-0.32px] text-black">
+                  <span class="size-5 shrink-0 text-[#25d366]" set:html={IconCheck} />
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p class="mb-6 font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+              Lista de planes
+            </p>
+            <div class="flex flex-wrap justify-center gap-8">
+              {planesByCategory[cat.key].map((plan) => (
+                <PlanCard plan={plan} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <Testemunial title="Que dicen sobre nosotros" />
+  <Faq />
+  <Cta />
+  <SiteFooter />
+</BaseLayout>
