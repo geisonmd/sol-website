@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { fetchCollection } from '../lib/payload'
+
+interface Plan {
+  id: number
+  title: string
+  slug: string
+  tipo: 'fibra' | 'xtreme'
+  download: number
+  upload: number
+  priceUSD: number
+}
+
+const planes = await fetchCollection<Plan>('planes', { sort: 'priceUSD' })
+---
+
+<BaseLayout title="Inicio" description="Internet de fibra óptica y antena en Paraguay">
+  <main class="mx-auto max-w-5xl px-4 py-12">
+    <h1 class="text-3xl font-bold">Sol Internet</h1>
+    <p class="mt-2 text-neutral-600">Planes disponibles ({planes.length})</p>
+    <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {
+        planes.map((plan) => (
+          <li class="rounded-xl border border-neutral-200 p-5">
+            <p class="text-xs font-medium uppercase text-orange-600">{plan.tipo}</p>
+            <h2 class="mt-1 text-lg font-semibold">{plan.title}</h2>
+            <p class="mt-2 text-sm text-neutral-600">
+              {plan.download} / {plan.upload} Mbps
+            </p>
+            <p class="mt-3 text-2xl font-bold">USD {plan.priceUSD}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
