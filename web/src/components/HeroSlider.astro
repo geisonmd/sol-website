@@ -1,0 +1,139 @@
+---
+import SolMark from '../assets/brand/sol-mark.svg'
+import ArrowDiagonal from '../assets/icons/arrow-diagonal.svg'
+import bannerSolPlay from '../assets/hero/banner-slider-1-desktop.jpg'
+
+// TODO: swap in distinct banners per slide once the client provides them.
+// For now all 3 slides reuse the same Sol Play banner (per client instruction).
+const slides = [
+  {
+    image: bannerSolPlay,
+    heading: ['Todo lo que tu TV necesita', 'En una simple suscripción'],
+    text: 'Olvídate de los cortes molestos y explora la televisión a través de internet con nuestra APP exclusiva.',
+    primaryCta: { label: 'Quiero contratar', href: '/planes' },
+    secondaryCta: { label: 'Conocer más', href: '/sol-play' },
+  },
+  {
+    image: bannerSolPlay,
+    heading: ['Todo lo que tu TV necesita', 'En una simple suscripción'],
+    text: 'Olvídate de los cortes molestos y explora la televisión a través de internet con nuestra APP exclusiva.',
+    primaryCta: { label: 'Quiero contratar', href: '/planes' },
+    secondaryCta: { label: 'Conocer más', href: '/sol-play' },
+  },
+  {
+    image: bannerSolPlay,
+    heading: ['Todo lo que tu TV necesita', 'En una simple suscripción'],
+    text: 'Olvídate de los cortes molestos y explora la televisión a través de internet con nuestra APP exclusiva.',
+    primaryCta: { label: 'Quiero contratar', href: '/planes' },
+    secondaryCta: { label: 'Conocer más', href: '/sol-play' },
+  },
+]
+---
+
+<section class="hero-slider relative overflow-hidden bg-[#181818]">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {
+        slides.map((slide) => (
+          <div class="swiper-slide">
+            <div
+              class="relative flex min-h-[632px] items-center bg-cover bg-center px-16"
+              style={`background-image: url(${slide.image.src})`}
+            >
+              <div class="ml-auto flex w-full max-w-[592px] flex-col items-start gap-4">
+                <img src={SolMark.src} alt="" class="h-[52px] w-[70px]" />
+                <h1 class="font-sans text-5xl leading-[1.3] tracking-[-1px] text-white">
+                  {slide.heading.map((line) => (
+                    <span class="block">{line}</span>
+                  ))}
+                </h1>
+                <p class="font-sans text-2xl leading-[1.6] tracking-[-0.48px] text-white">
+                  {slide.text}
+                </p>
+                <div class="flex items-center gap-8">
+                  <a
+                    href={slide.primaryCta.href}
+                    class="font-franklin-medium flex items-center gap-2 rounded-[35px] bg-[#25d366] px-8 py-4 text-base tracking-[-0.32px] text-[#181818]"
+                  >
+                    {slide.primaryCta.label}
+                    <img src={ArrowDiagonal.src} alt="" class="size-6" />
+                  </a>
+                  <a
+                    href={slide.secondaryCta.href}
+                    class="font-franklin-medium flex items-center gap-2 rounded-[35px] border-[1.5px] border-white px-8 py-4 text-base tracking-[-0.32px] text-white"
+                  >
+                    {slide.secondaryCta.label}
+                    <svg
+                      class="size-6"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="swiper-pagination" />
+    <div class="swiper-button-prev" />
+    <div class="swiper-button-next" />
+  </div>
+</section>
+
+<style>
+  .hero-slider :global(.swiper-pagination-bullet) {
+    width: 100px;
+    height: 4px;
+    border-radius: 4px;
+    background: white;
+    opacity: 0.3;
+  }
+  .hero-slider :global(.swiper-pagination-bullet-active) {
+    opacity: 1;
+  }
+  .hero-slider :global(.swiper-button-prev),
+  .hero-slider :global(.swiper-button-next) {
+    width: 64px;
+    height: 64px;
+    border: 1.5px solid white;
+    border-radius: 35px;
+    color: white;
+  }
+  .hero-slider :global(.swiper-button-prev::after),
+  .hero-slider :global(.swiper-button-next::after) {
+    font-size: 20px;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper'
+  import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+  import 'swiper/css'
+  import 'swiper/css/navigation'
+  import 'swiper/css/pagination'
+
+  new Swiper('.hero-slider .swiper', {
+    modules: [Autoplay, Navigation, Pagination],
+    loop: true,
+    speed: 500,
+    autoplay: {
+      delay: 5000,
+      pauseOnMouseEnter: true,
+      disableOnInteraction: true,
+    },
+    pagination: {
+      el: '.hero-slider .swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      prevEl: '.hero-slider .swiper-button-prev',
+      nextEl: '.hero-slider .swiper-button-next',
+    },
+  })
+</script>

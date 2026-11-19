@@ -12,10 +12,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "7.4.0",
     "@tailwindcss/vite": "4.3.5",
-    "tailwindcss": "4.3.5",
-    "sharp": "0.35.5"
+    "astro": "7.4.0",
+    "sharp": "0.35.5",
+    "swiper": "14.4.0",
+    "tailwindcss": "4.3.5"
   },
   "engines": {
     "node": ">=20.9.0"
