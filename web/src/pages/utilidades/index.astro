@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
+import PageHero from '../../components/PageHero.astro'
+import Cta from '../../components/home/Cta.astro'
+import EnlacesGrupo from '../../components/utilidades/EnlacesGrupo.astro'
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import IconNewspaper from 'lucide-static/icons/newspaper.svg?raw'
+import IconWheat from 'lucide-static/icons/wheat.svg?raw'
+import IconCloudSun from 'lucide-static/icons/cloud-sun.svg?raw'
+import IconClapperboard from 'lucide-static/icons/clapperboard.svg?raw'
+import IconLandmark from 'lucide-static/icons/landmark.svg?raw'
+import IconRadio from 'lucide-static/icons/radio.svg?raw'
+import IconLink from 'lucide-static/icons/external-link.svg?raw'
+
+const grupos = [
+  {
+    icon: IconLink,
+    title: 'Teleguia',
+    links: [
+      { label: 'Teleguia', href: 'https://www.teleguia.com.py/' },
+      { label: 'WhatsApp', href: 'https://web.whatsapp.com/' },
+      { label: 'Youtube', href: 'https://www.youtube.com/' },
+      { label: 'Gmail', href: 'https://gmail.com/' },
+      { label: 'Outlook', href: 'https://outlook.com' },
+      { label: 'Facebook', href: 'https://facebook.com' },
+    ],
+  },
+  {
+    icon: IconNewspaper,
+    title: 'Noticias',
+    links: [
+      { label: 'ABC Color', href: 'https://www.abc.com.py/' },
+      { label: 'Vanguardia', href: 'https://diariovanguardia.com.py/' },
+      { label: 'Última Hora', href: 'https://www.ultimahora.com/' },
+      { label: 'Popular', href: 'https://www.popular.com.py/' },
+      { label: 'La Nación', href: 'https://www.lanacion.com.py/' },
+      { label: 'Paraguay.com', href: 'https://www.paraguay.com/' },
+      { label: 'Reuters', href: 'https://br.reuters.com/' },
+    ],
+  },
+  {
+    icon: IconWheat,
+    title: 'Agricultura',
+    links: [
+      {
+        label: 'Chicago',
+        href: 'https://www.cmegroup.com/trading/agricultural/grain-and-oilseed/soybean.html',
+      },
+      { label: 'Bolsa ADM', href: 'https://www.e-adm.com/pda/futures.aspx' },
+      { label: 'Canal Rural', href: 'https://www.canalrural.com.br/ultimas-noticias/' },
+      { label: 'Mag Py', href: 'https://www.mag.gov.py/' },
+      { label: 'Noticias Agrícolas', href: 'https://www.noticiasagricolas.com.br/noticias/' },
+      { label: 'Campo Líder', href: 'https://campolider.com/' },
+      { label: 'APS', href: 'https://aps.org.py/noticias' },
+    ],
+  },
+  {
+    icon: IconCloudSun,
+    title: 'Tiempo',
+    links: [
+      { label: 'Met. Coop', href: 'https://www.fecoprod.com.py/union/' },
+      {
+        label: 'Freemeteo',
+        href: 'https://freemeteo.com.py/eltiempo/santa-rita/7dias/lista/?gid=3436968&language=spanishar&country=paraguay',
+      },
+      {
+        label: 'Jornal Tempo',
+        href: 'https://jornaldotempo.uol.com.br/previsaodotempo.html/mundo/SantaRita+Paraguay',
+      },
+      {
+        label: 'Info Clima',
+        href: 'https://www.infoclima.com/pronosticos/paraguay/alto-parana/?l=484&p=10',
+      },
+      { label: 'Weather', href: 'https://weather.com/pt-BR/clima/hoje/l/PAXX0414:1:PA' },
+    ],
+  },
+  {
+    icon: IconClapperboard,
+    title: 'Entretenimiento',
+    links: [
+      { label: 'GE', href: 'https://globoesporte.globo.com/' },
+      { label: 'Gazeta Esp.', href: 'https://www.gazetaesportiva.net/' },
+      { label: 'R7', href: 'https://esportes.r7.com/' },
+      { label: 'Globo', href: 'https://www.globo.com/' },
+      { label: 'Record', href: 'https://www.r7.com/' },
+      { label: 'Horóscopo', href: 'https://www.estrelaguia.com.br/horoscopo' },
+      { label: 'Google News', href: 'https://news.google.com.br/' },
+      { label: 'Deportes 10', href: 'https://d10.paraguay.com/' },
+    ],
+  },
+  {
+    icon: IconLandmark,
+    title: 'Bancos',
+    links: [
+      { label: 'Banco Visión', href: 'https://www.visionbanco.com/' },
+      { label: 'Banco GNB', href: 'https://www.bancognb.com.py/' },
+      { label: 'Itaú', href: 'https://www.itau.com.py/' },
+      { label: 'Sudameris', href: 'https://www.sudameris.com.py/' },
+      { label: 'Banco Rio', href: 'https://www.rio.com.py/' },
+      { label: 'Continental', href: 'https://bancontinental.com.py/' },
+      { label: 'Familiar', href: 'https://www.familiar.com.py/' },
+    ],
+  },
+  {
+    icon: IconRadio,
+    title: 'Radios',
+    links: [
+      { label: 'Santa Rita', href: 'https://www.radiosantarita.com.py/' },
+      { label: 'Progreso', href: 'https://www.radioprogreso.com.py/' },
+      { label: 'Suceso', href: 'https://radiosuceso.com/' },
+      { label: 'Estación 40', href: 'https://estacion40.com.py/' },
+      { label: 'Radio Luz', href: 'https://www.radioluzfmpy.com/' },
+      { label: 'Radio Sol', href: 'https://www.solfm89.com/' },
+      { label: 'Naranjaty', href: 'https://www.naranjaty.com.py/' },
+      { label: 'Otras Radios', href: 'https://emisoras.com.py/' },
+    ],
+  },
+]
+---
+
+<BaseLayout title="Utilidades" description="Enlaces útiles para nuestros clientes">
+  <SiteHeader />
+  <PageHero
+    title="Utilidades"
+    note="Enlaces rápidos a los sitios que más usás: noticias, clima, bancos, radios y más."
+  />
+
+  <section class="flex items-center justify-center bg-white">
+    <div class="flex w-full max-w-[1216px] flex-col gap-8 py-8">
+      <div
+        class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#fafafa] p-8 sm:flex-row sm:items-center"
+      >
+        <div class="flex flex-col gap-1">
+          <p class="font-franklin-medium text-sm tracking-[0.1em] text-[#ed8419] uppercase">
+            Cambio del día
+          </p>
+          <p class="font-sans text-2xl tracking-[-0.44px] text-black">
+            Consultá la cotización actualizada
+          </p>
+          <p class="font-sans text-sm text-[#808080]">Fuente: Santa Rita Cambios</p>
+        </div>
+        <a
+          href="https://santaritacambios.com.py"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-franklin-medium flex shrink-0 items-center gap-2.5 rounded-[35px] border border-[#2e2e2e] px-8 py-4 text-base tracking-[-0.32px] text-[#2e2e2e]"
+        >
+          Ver cotización
+          <img src={ArrowDiagonal.src} alt="" class="size-6" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex items-center justify-center bg-white">
+    <div class="grid w-full max-w-[1216px] grid-cols-1 gap-6 py-16 sm:grid-cols-2 lg:grid-cols-3">
+      {grupos.map((g) => <EnlacesGrupo icon={g.icon} title={g.title} links={g.links} />)}
+    </div>
+  </section>
+
+  <Cta />
+  <SiteFooter />
+</BaseLayout>
