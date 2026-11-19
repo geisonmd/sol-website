@@ -1,0 +1,128 @@
+---
+import LogoNegative from '../assets/brand/logo-sol-internet-negative.svg'
+import IconAreaDelCliente from '../assets/icons/area-del-cliente.svg'
+import Instagram from '../assets/social/instagram.svg'
+import Facebook from '../assets/social/facebook.svg'
+import Tiktok from '../assets/social/tiktok.svg'
+import Twitter from '../assets/social/twitter.svg'
+import Youtube from '../assets/social/youtube.svg'
+
+const serviceLinks = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Planes de Fibra Óptica', href: '/planes/fibra-optica' },
+  { label: 'Planes Express', href: '/planes/express' },
+  { label: 'Planes por Antena', href: '/planes/airmax' },
+  { label: 'Sol Play', href: '/sol-play' },
+  { label: 'Acceso Webmail', href: 'https://webmail.sol.com.py' },
+]
+
+const aboutLinks = [
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contacto', href: '/contacto' },
+  { label: 'Quienes Somos', href: '/quienes-somos' },
+  { label: 'Sucursales', href: '/contacto#sucursales' },
+  { label: 'Política de Privacidad', href: '/politica-de-privacidad' },
+]
+
+const socials = [
+  { icon: Instagram, href: 'https://instagram.com/solinternetpy', label: 'Instagram' },
+  { icon: Facebook, href: 'https://facebook.com/solinternetpy', label: 'Facebook' },
+  { icon: Tiktok, href: 'https://tiktok.com/@solinternetpy', label: 'TikTok' },
+  { icon: Twitter, href: 'https://x.com/solinternetpy', label: 'Twitter' },
+  { icon: Youtube, href: 'https://youtube.com/@solinternetpy', label: 'YouTube' },
+]
+
+const year = new Date().getFullYear()
+---
+
+<footer>
+  <div class="flex flex-col items-center justify-center bg-[#181818]">
+    <div class="flex w-full max-w-[1216px] items-start justify-between py-24">
+      <p class="font-franklin-book max-w-[520px] text-[32px] leading-[1.6] tracking-[-0.64px] text-white">
+        Internet para empresas y residencias que necesitan una conexión de calidad con un servicio
+        expecional
+      </p>
+      <div class="flex w-[592px] items-start justify-between">
+        <div class="flex flex-col items-start gap-6">
+          <p class="font-franklin-medium text-base tracking-[-0.32px] text-white uppercase">
+            Servicios
+          </p>
+          <div class="flex flex-col items-start gap-4 font-sans text-base tracking-[-0.32px] text-white">
+            {
+              serviceLinks.map((l) => (
+                <a href={l.href} class="opacity-70 hover:opacity-100">
+                  {l.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div class="flex flex-col items-start gap-6">
+          <p class="font-franklin-medium text-base tracking-[-0.32px] text-white uppercase">
+            Sobre nosotros
+          </p>
+          <div class="flex flex-col items-start gap-4">
+            {
+              aboutLinks.map((l) => (
+                <a
+                  href={l.href}
+                  class="font-sans text-base tracking-[-0.32px] text-white opacity-70 hover:opacity-100"
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+            <a
+              href="/trabaje-con-nosotros"
+              class="font-franklin-book flex items-center gap-2 text-base tracking-[-0.32px] text-[#ffb200]"
+            >
+              <img src={IconAreaDelCliente.src} alt="" class="size-6 invert sepia" />
+              Trabaje con nosotros
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-col items-start gap-6">
+          <p class="font-franklin-medium text-base tracking-[-0.32px] text-white uppercase">
+            Formas de contacto
+          </p>
+          <div class="flex flex-col items-start gap-4 font-sans text-base tracking-[-0.32px] text-white opacity-70">
+            <p>*10 000 - llamada gratuita</p>
+            <p>+595 983 550 110</p>
+            <p>contacto@sol.com.py</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col items-center justify-center bg-[#1e1e1e]">
+    <div class="flex w-full max-w-[1216px] flex-col gap-16 py-16">
+      <div class="flex items-center justify-between">
+        <img src={LogoNegative.src} alt="Sol Internet" class="h-[98px] w-[300px]" />
+        <div class="flex flex-col items-end gap-8">
+          <p class="font-franklin-medium text-base tracking-[-0.32px] text-white uppercase">
+            Síganos en las redes sociales
+          </p>
+          <div class="flex items-start gap-4">
+            {
+              socials.map((s) => (
+                <a
+                  href={s.href}
+                  aria-label={s.label}
+                  class="flex size-8 items-center justify-center rounded bg-[#ffb200]"
+                >
+                  <img src={s.icon.src} alt="" class="size-[18px]" />
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="flex items-start justify-between font-sans text-base tracking-[-0.32px] text-white">
+        <p class="opacity-70">Sol Telecomunicaciones © {year} - Todos los derechos reservados.</p>
+        <p class="opacity-70">
+          Diseñado y Desarrollado por <a href="#" class="underline">Geison Dreon</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
