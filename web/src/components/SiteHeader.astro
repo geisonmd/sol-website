@@ -1,0 +1,64 @@
+---
+import LogoSolInternet from '../assets/brand/logo-sol-internet.svg'
+import IconWebmail from '../assets/icons/webmail.svg'
+import IconAreaDelCliente from '../assets/icons/area-del-cliente.svg'
+import IconArrowDiagonal from '../assets/icons/arrow-diagonal.svg'
+import IconDropdown from '../assets/icons/navmenu-dropdown.svg'
+
+const navLinks = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Planes', href: '/planes', hasDropdown: true },
+  { label: 'Sol Play', href: '/sol-play' },
+  { label: 'Quienes Somos', href: '/quienes-somos' },
+  { label: 'Trabaje con nosotros', href: '/trabaje-con-nosotros' },
+  { label: 'Contacto', href: '/contacto' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Utilidades', href: '/utilidades' },
+]
+---
+
+<header class="flex flex-col items-center justify-center bg-white py-4">
+  <div class="flex w-full max-w-[1216px] flex-col gap-4 px-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="block h-16 w-[195px]">
+        <img src={LogoSolInternet.src} alt="Sol Internet" class="h-full w-full" />
+      </a>
+      <div class="flex items-center justify-end gap-4">
+        <a href="/area-del-cliente" class="flex items-center gap-2 px-4 py-2.5">
+          <img src={IconAreaDelCliente.src} alt="" class="size-5" />
+          <span class="font-franklin-medium text-base tracking-[-0.32px] text-black">
+            Área del cliente
+          </span>
+        </a>
+        <a href="https://webmail.sol.com.py" class="flex items-center gap-2 px-4 py-2.5">
+          <img src={IconWebmail.src} alt="" class="size-5" />
+          <span class="font-franklin-medium text-base tracking-[-0.32px] text-black">
+            acceso webmail
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <nav class="flex items-center justify-center gap-10">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="flex items-center font-sans text-base tracking-[-0.32px] text-black"
+            >
+              {link.label}
+              {link.hasDropdown && <img src={IconDropdown.src} alt="" class="ml-1 size-6" />}
+            </a>
+          ))
+        }
+      </nav>
+      <a
+        href="/planes"
+        class="font-franklin-medium flex shrink-0 items-center gap-2.5 rounded-[35px] border border-[#2e2e2e] px-8 py-4 text-base tracking-[-0.32px] text-[#2e2e2e]"
+      >
+        Contratar ahora
+        <img src={IconArrowDiagonal.src} alt="" class="size-6" />
+      </a>
+    </div>
+  </div>
+</header>

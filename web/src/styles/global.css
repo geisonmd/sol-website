@@ -1,5 +1,40 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Franklin Gothic Book';
+  src: url('../assets/fonts/FranklinGothic-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Franklin Gothic Book';
+  src: url('../assets/fonts/FranklinGothic-BookItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Franklin Gothic Medium';
+  src: url('../assets/fonts/FranklinGothic-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Franklin Gothic Demi';
+  src: url('../assets/fonts/FranklinGothic-Demi.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-franklin-book: 'Franklin Gothic Book', system-ui, sans-serif;
+  --font-franklin-medium: 'Franklin Gothic Medium', system-ui, sans-serif;
+  --font-franklin-demi: 'Franklin Gothic Demi', system-ui, sans-serif;
+
+  --color-negro-full: #181818;
+  --color-negro-bg: #2e2e2e;
 }
