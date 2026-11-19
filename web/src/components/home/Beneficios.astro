@@ -1,0 +1,124 @@
+---
+import IconRss from '../../assets/icons/rss.svg'
+import IconInstalacion from '../../assets/icons/instalacion-gratuita.svg'
+import IconGarantia from '../../assets/icons/garantia-3meses.svg'
+import IconConexion from '../../assets/icons/conexion-estable.svg'
+import IconCobertura from '../../assets/icons/cobertura-ampliada.svg'
+import IconStars from '../../assets/icons/stars-google-rating.svg'
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import avatar1 from '../../assets/avatars/google-rate-1.jpg'
+import avatar2 from '../../assets/avatars/google-rate-2.jpg'
+import avatar3 from '../../assets/avatars/google-rate-3.jpg'
+import avatar4 from '../../assets/avatars/google-rate-4.jpg'
+import avatar5 from '../../assets/avatars/google-rate-5.jpg'
+
+const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5]
+
+const cards = [
+  {
+    icon: IconInstalacion,
+    title: 'Instalación gratuita',
+    text: 'Obtenga su internet rapidamente, sin costos adicionales.',
+  },
+  {
+    icon: IconGarantia,
+    title: 'Garantia de 3 meses',
+    text: 'Garantia para servicios y equipos para tu total tranquilidad.',
+  },
+  {
+    icon: IconConexion,
+    title: 'Conexión estable',
+    text: 'Mayor estabilidad con múltiples enlaces de fibra óptica.',
+  },
+  {
+    icon: IconCobertura,
+    title: 'Cobertura ampliada',
+    text: 'Cobertura en zonas urbanas como rurales, consulte con un agente.',
+  },
+]
+---
+
+<section class="flex items-center justify-center border-b border-[#d3d3d3] bg-[#fafafa]">
+  <div class="flex w-full max-w-[1216px] gap-8 py-[164px]">
+    <div class="flex flex-1 flex-col gap-12 self-stretch">
+      <p class="font-sans text-[64px] leading-[1.3] tracking-[-1.28px] text-black">
+        Obtengas ventajas únicas solamente con Sol Internet
+      </p>
+      <div class="flex flex-col items-start justify-center gap-1">
+        <div class="flex items-end pb-4">
+          {
+            avatars.map((avatar, i) => (
+              <div
+                class="-mr-4 size-12 overflow-hidden rounded-full"
+                style={`z-index: ${avatars.length - i}`}
+              >
+                <img src={avatar.src} alt="" class="size-full object-cover" />
+              </div>
+            ))
+          }
+        </div>
+        <div class="flex items-center gap-3">
+          <p class="font-franklin-medium text-2xl tracking-[-0.48px] text-black">4.7</p>
+          <img src={IconStars.src} alt="5 estrellas" class="h-5" />
+          <p class="font-sans text-base tracking-[-0.32px] text-black underline">
+            +100 comentários
+          </p>
+        </div>
+        <p class="font-franklin-medium text-2xl tracking-[-0.48px] text-black">Ranking en Google</p>
+      </div>
+    </div>
+    <div class="flex flex-1 gap-8 self-stretch">
+      <div class="flex flex-1 flex-col gap-8">
+        <div
+          class="flex items-center gap-4 self-start rounded-[35px] border border-[#181818] bg-white px-8 py-3"
+        >
+          <span class="flex size-8 items-center justify-center rounded-full bg-[rgba(255,178,0,0.2)]">
+            <img src={IconRss.src} alt="" class="size-5" />
+          </span>
+          <p class="font-franklin-medium text-base tracking-[-0.32px] text-[#181818] uppercase">
+            Beneficios
+          </p>
+        </div>
+        {
+          cards.slice(0, 2).map((card) => (
+            <div class="flex flex-1 flex-col justify-between gap-6 rounded-3xl border border-[#e6e6e6] bg-white p-6">
+              <span class="flex items-start rounded-2xl bg-[rgba(237,132,25,0.1)] p-2">
+                <img src={card.icon.src} alt="" class="size-8" />
+              </span>
+              <div class="flex flex-col gap-2">
+                <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+                  {card.title}
+                </p>
+                <p class="font-sans text-base tracking-[-0.32px] text-[#808080]">{card.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="flex flex-1 flex-col gap-8">
+        {
+          cards.slice(2, 4).map((card) => (
+            <div class="flex flex-1 flex-col justify-between gap-6 rounded-3xl border border-[#e6e6e6] bg-white p-6">
+              <span class="flex items-start rounded-2xl bg-[rgba(237,132,25,0.1)] p-2">
+                <img src={card.icon.src} alt="" class="size-8" />
+              </span>
+              <div class="flex flex-col gap-2">
+                <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+                  {card.title}
+                </p>
+                <p class="font-sans text-base tracking-[-0.32px] text-[#808080]">{card.text}</p>
+              </div>
+            </div>
+          ))
+        }
+        <a
+          href="/planes"
+          class="font-franklin-medium flex items-center justify-center gap-2 rounded-[35px] bg-[#25d366] px-8 py-4 text-base tracking-[-0.32px] text-[#181818]"
+        >
+          Quiero contratar
+          <img src={ArrowDiagonal.src} alt="" class="size-6" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
