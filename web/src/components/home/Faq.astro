@@ -10,15 +10,42 @@ const faqs = [
     q: '¿La instalación tiene costo?',
     a: 'Las instalaciones tanto en la conexión de fibra como en antena son completamente gratuitas.',
   },
-  { q: '¿Se paga algún costo por los equipos?' },
-  { q: '¿Tienen asistencias rápidas y eficientes?' },
-  { q: '¿El internet es ilimitado o se termina los MBps y tengo que recargarlos?' },
-  { q: '¿Los planes más altos tienen mejor cobertura de Wi-Fi?' },
-  { q: '¿Puedo compartir el internet con mi vecino?' },
-  { q: '¿Cuántos dispositivos puedo conectar a mi Wi-Fi?' },
-  { q: '¿Tienen garantía los equipos?' },
-  { q: '¿Trabajan con contrato?' },
-  { q: '¿Como funciona la cancelación?' },
+  {
+    q: '¿Se paga algún costo por los equipos?',
+    a: 'Nosotros proveemos todos los equipos necesarios para el perfecto funcionamiento del servicio en comodato, por lo tanto, no genera ningún costo al cliente. A menos que el cliente quiera comprar los equipos para un segundo punto de conexión, ahí sí nosotros le vendemos los equipos.',
+  },
+  {
+    q: '¿Tienen asistencias rápidas y eficientes?',
+    a: 'Nosotros no tercerizamos a nuestros técnicos, por lo que contratamos, capacitamos e instruimos nuestros propios técnicos para realizar las asistencias, todo eso nos ayuda a mantener nuestras asistencias agilizadas, y con la seguridad de que los trabajos serán bien ejecutados y el cliente tendrá la satisfacción de contar con un servicio altamente calificado.',
+  },
+  {
+    q: '¿El internet es ilimitado o se termina los MBps y tengo que recargarlos?',
+    a: 'Los MBPS son ilimitados, es decir, el cliente pagará una cuota mensual y tendrá banda ancha ilimitada.',
+  },
+  {
+    q: '¿Los planes más altos tienen mejor cobertura de Wi-Fi?',
+    a: 'No, la cantidad de MBPS no tiene relación con el alcance de la cobertura, por ejemplo, si un cliente tiene un plan de 600 MBPS va a alcanzar la misma distancia que si tuviera un plan de 5 MBPS, porque el alcance de la señal depende exclusivamente del router. Si el cliente necesita ampliar su cobertura no es necesario subir el plan, sino instalar otro aparato ruteador.',
+  },
+  {
+    q: '¿Puedo compartir el internet con mi vecino?',
+    a: 'Nosotros instalamos el aparato Ruteador que es el encargado de distribuir la señal en la residencia del cliente. El alcance de la señal del router va a variar mucho según el local instalado, cada pared o divisoria disminuye la cobertura. Lo ideal y recomendable es que cada uno tenga su propio plan de internet con el router en su casa.',
+  },
+  {
+    q: '¿Cuántos dispositivos puedo conectar a mi Wi-Fi?',
+    a: 'Depende del plan que tengas, es muy variable, porque hay programas, aplicaciones o dispositivos que usan más MBPS y otros menos. Recomendamos que consultes a uno de nuestros representantes comerciales y expreses la finalidad de la utilización para darte una información más precisa.',
+  },
+  {
+    q: '¿Tienen garantía los equipos?',
+    a: 'Sí, todos nuestros equipos tienen garantía de 3 meses, y si el cliente necesita de alguna asistencia, esa misma asistencia va a tener más 3 meses de garantía en la mano de obra y los equipos si tienen defecto de fábrica.',
+  },
+  {
+    q: '¿Trabajan con contrato?',
+    a: 'Sí, trabajamos con un contrato que tiene una duración de 12 meses corridos en caso de conexión de antena y de 15 meses en el caso de conexión de fibra óptica. El objetivo es garantizar la excelencia en la prestación de nuestros servicios. En caso de cancelación antes del plazo estipulado, se aplicará una multa de 90 dólares.',
+  },
+  {
+    q: '¿Como funciona la cancelación?',
+    a: 'Pedimos a los clientes que soliciten la cancelación con un plazo no inferior a 30 días de anticipación, llamando a nuestro call center *10000 y expresando el motivo. Después, nuestro equipo técnico pasará a retirar los equipos que están en comodato en la residencia del cliente.',
+  },
 ]
 const half = Math.ceil(faqs.length / 2)
 const columns = [faqs.slice(0, half), faqs.slice(half)]

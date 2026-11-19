@@ -1,0 +1,38 @@
+---
+const steps = [
+  { title: 'Envío de Curriculum', text: 'Envía tu Curriculum Vitae a talentos@sol.com.py.' },
+  {
+    title: 'Confirmación y Entrevista',
+    text: 'Nuestro equipo de talentos te contactará para coordinar una entrevista.',
+  },
+  { title: 'Entrevista Personal', text: 'Participa en una entrevista en el lugar acordado.' },
+  {
+    title: 'Pre-Inducción',
+    text: 'Los postulantes pre-seleccionados en la entrevista serán convocados para un encuentro llamado pre-inducción, una jornada donde conocerán sobre los valores y procesos de la empresa.',
+  },
+  { title: 'Contratación', text: 'Bienvenido a nuestro equipo: ¡Eres parte de SOL! 🌞' },
+]
+---
+
+<section class="flex items-center justify-center bg-white">
+  <div class="flex w-full max-w-[1216px] flex-col gap-16 py-24">
+    <p class="max-w-[600px] font-sans text-5xl leading-[1.3] tracking-[-1.28px] text-black">
+      Procesos de contratación de colaboradores
+    </p>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        steps.map((item, i) => (
+          <div class="flex flex-col gap-4">
+            <p class="font-franklin-medium text-sm text-[#ed8419]">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <p class="font-franklin-medium text-base tracking-[-0.32px] text-black">
+              {item.title}
+            </p>
+            <p class="font-sans text-base tracking-[-0.32px] text-[#808080]">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

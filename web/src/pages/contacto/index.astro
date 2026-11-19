@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
+import PageHero from '../../components/PageHero.astro'
+import Departamentos from '../../components/contacto/Departamentos.astro'
+import Faq from '../../components/home/Faq.astro'
+import Sucursales from '../../components/Sucursales.astro'
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import IconPhoneCall from 'lucide-static/icons/phone-call.svg?raw'
+import IconMessageCircle from 'lucide-static/icons/message-circle.svg?raw'
+
+const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola, vengo desde el sitio web y me gustaría hacer una consulta.')}`
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Entra en contacto con el representante que desees"
+>
+  <SiteHeader />
+  <PageHero
+    title="Entra en contacto con el representante que desees"
+    note="Realiza llamadas sin costo desde cualquier operadora o contáctanos por WhatsApp. Nuestra central telefónica está disponible desde las 6 am hasta media noche todos los días del año."
+  />
+
+  <section class="flex items-center justify-center bg-white">
+    <div class="grid w-full max-w-[1216px] grid-cols-1 gap-8 py-8 sm:grid-cols-2">
+      <a
+        href="tel:*10000"
+        class="flex items-center justify-between gap-6 rounded-3xl border border-[#e6e6e6] bg-white p-8"
+      >
+        <div class="flex items-center gap-4">
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#ed8419]/10 text-[#ed8419] [&>svg]:size-6">
+            <Fragment set:html={IconPhoneCall} />
+          </span>
+          <div class="flex flex-col">
+            <p class="font-franklin-medium text-lg tracking-[-0.36px] text-black">
+              Llamar sin costo al *10 000
+            </p>
+            <p class="font-sans text-sm text-[#808080]">Clic aquí para empezar una llamada</p>
+          </div>
+        </div>
+        <img src={ArrowDiagonal.src} alt="" class="size-6 shrink-0" />
+      </a>
+      <a
+        href={whatsappHref}
+        class="flex items-center justify-between gap-6 rounded-3xl border border-[#e6e6e6] bg-white p-8"
+      >
+        <div class="flex items-center gap-4">
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#25d366]/10 text-[#25d366] [&>svg]:size-6">
+            <Fragment set:html={IconMessageCircle} />
+          </span>
+          <div class="flex flex-col">
+            <p class="font-franklin-medium text-lg tracking-[-0.36px] text-black">
+              Enviar un mensaje al 0983 550110
+            </p>
+            <p class="font-sans text-sm text-[#808080]">Clic aquí para enviar un mensaje</p>
+          </div>
+        </div>
+        <img src={ArrowDiagonal.src} alt="" class="size-6 shrink-0" />
+      </a>
+    </div>
+  </section>
+
+  <Departamentos />
+  <Faq />
+  <Sucursales />
+  <SiteFooter />
+</BaseLayout>

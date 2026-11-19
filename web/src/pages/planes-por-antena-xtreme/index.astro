@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import SiteHeader from '../../components/SiteHeader.astro'
 import SiteFooter from '../../components/SiteFooter.astro'
-import PlanesHero from '../../components/planes/PlanesHero.astro'
+import PageHero from '../../components/PageHero.astro'
 import PlanesBeneficios from '../../components/planes/PlanesBeneficios.astro'
 import PlanCard from '../../components/planes/PlanCard.astro'
 import Testemunial from '../../components/home/Testemunial.astro'
@@ -32,7 +32,7 @@ const planes = await fetchCollection<Plan>('planes', {
   description="Conozca nuestros planes de internet por antena Xtreme"
 >
   <SiteHeader />
-  <PlanesHero title="Conozca nuestros planes por antena Xtreme" />
+  <PageHero title="Conozca nuestros planes por antena Xtreme" />
   <PlanesBeneficios />
   <section class="flex items-center justify-center bg-white">
     <div class="flex w-full max-w-[1216px] flex-col gap-16 py-16">

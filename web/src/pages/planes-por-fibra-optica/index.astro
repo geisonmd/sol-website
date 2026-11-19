@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import SiteHeader from '../../components/SiteHeader.astro'
 import SiteFooter from '../../components/SiteFooter.astro'
-import PlanesHero from '../../components/planes/PlanesHero.astro'
+import PageHero from '../../components/PageHero.astro'
 import PlanesBeneficios from '../../components/planes/PlanesBeneficios.astro'
 import PlanCard from '../../components/planes/PlanCard.astro'
 import Testemunial from '../../components/home/Testemunial.astro'
@@ -104,7 +104,7 @@ const planesByCategory = Object.fromEntries(
   description="Conozca nuestros planes de internet de fibra óptica"
 >
   <SiteHeader />
-  <PlanesHero title="Conozca nuestros planes de fibra óptica" />
+  <PageHero title="Conozca nuestros planes de fibra óptica" />
   <PlanesBeneficios />
 
   {
