@@ -6,6 +6,8 @@ import IconConexion from '../../assets/icons/conexion-estable.svg'
 import IconCobertura from '../../assets/icons/cobertura-ampliada.svg'
 import IconStars from '../../assets/icons/stars-google-rating.svg'
 import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import IconWifi from 'lucide-static/icons/wifi.svg?raw'
+import IconSmartphone from 'lucide-static/icons/smartphone.svg?raw'
 import avatar1 from '../../assets/avatars/google-rate-1.jpg'
 import avatar2 from '../../assets/avatars/google-rate-2.jpg'
 import avatar3 from '../../assets/avatars/google-rate-3.jpg'
@@ -38,13 +40,32 @@ const cards = [
 ]
 ---
 
-<section class="flex items-center justify-center border-b border-[#d3d3d3] bg-[#fafafa]">
+<section class="relative flex items-center justify-center overflow-hidden border-b border-[#d3d3d3] bg-[#fafafa]">
+  <svg
+    class="pointer-events-none absolute -top-10 right-0 h-[340px] w-[640px] text-[#ed8419]/10"
+    viewBox="0 0 640 340"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M-20 60C80 10 160 110 260 60S440 10 540 60s140 90 180 30"
+      stroke="currentColor"
+      stroke-width="16"
+      stroke-linecap="round"
+    />
+    <path
+      d="M-20 180C80 130 160 230 260 180S440 130 540 180s140 90 180 30"
+      stroke="currentColor"
+      stroke-width="16"
+      stroke-linecap="round"
+    />
+  </svg>
   <div class="flex w-full max-w-[1216px] gap-8 py-[164px]">
-    <div class="flex flex-1 flex-col gap-12 self-stretch">
-      <p class="font-sans text-[64px] leading-[1.3] tracking-[-1.28px] text-black">
+    <div class="relative flex flex-1 flex-col gap-12 self-stretch">
+      <p class="relative z-10 font-sans text-[64px] leading-[1.3] tracking-[-1.28px] text-black">
         Obtengas ventajas únicas solamente con Sol Internet
       </p>
-      <div class="flex flex-col items-start justify-center gap-1">
+      <div class="relative z-10 flex flex-col items-start justify-center gap-1">
         <div class="flex items-end pb-4">
           {
             avatars.map((avatar, i) => (
@@ -66,8 +87,14 @@ const cards = [
         </div>
         <p class="font-franklin-medium text-2xl tracking-[-0.48px] text-black">Ranking en Google</p>
       </div>
+      <div
+        class="absolute top-1/2 -right-6 z-20 flex -translate-y-1/2 -rotate-6 items-center gap-1 rounded-[20px] border border-white bg-[#ed8419] px-4 py-3 shadow-[0_12px_24px_-8px_rgba(237,132,25,0.5)]"
+      >
+        <span class="size-5 text-white [&>svg]:size-5" set:html={IconWifi} />
+        <span class="size-5 text-white [&>svg]:size-5" set:html={IconSmartphone} />
+      </div>
     </div>
-    <div class="flex flex-1 gap-8 self-stretch">
+    <div class="relative z-10 flex flex-1 gap-8 self-stretch">
       <div class="flex flex-1 flex-col gap-8">
         <div
           class="flex items-center gap-4 self-start rounded-[35px] border border-[#181818] bg-white px-8 py-3"
