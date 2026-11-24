@@ -1,21 +1,27 @@
 ---
 import photo from '../../assets/home/nosotros-photo.jpg'
-import IconX from 'lucide-static/icons/x.svg?raw'
+
+// Circle cluster decoration, positions/sizes taken from the Figma "NOSOTROS"
+// frame (1920x869): x/y/diameter as % of the section's width/height.
+const circles = [
+  { x: 77, y: 79, size: 30, opacity: 0.1 },
+  { x: 88.6, y: 51.9, size: 12.2, opacity: 0.2 },
+  { x: 63.8, y: 56.9, size: 21.25, opacity: 0.15 },
+  { x: 83.5, y: 40.2, size: 6.9, opacity: 0.3 },
+  { x: 97.7, y: 25, size: 3.6, opacity: 0.4 },
+  { x: 91.7, y: 32.2, size: 4.6, opacity: 0.3 },
+]
 ---
 
 <section class="relative h-[452px] overflow-hidden border-b border-[#d3d3d3] bg-[#d9d9d9]">
   <img src={photo.src} alt="" class="size-full object-cover" />
   <div class="absolute inset-0 bg-[#ef7800]/20 mix-blend-soft-light"></div>
-  <span
-    class="pointer-events-none absolute top-10 left-[8%] size-8 rotate-12 text-white/70 [&>svg]:size-8 [&>svg]:stroke-[3]"
-    set:html={IconX}
-  />
-  <span
-    class="pointer-events-none absolute right-[14%] bottom-14 size-10 -rotate-[20deg] text-white/60 [&>svg]:size-10 [&>svg]:stroke-[3]"
-    set:html={IconX}
-  />
-  <span
-    class="pointer-events-none absolute top-1/2 left-[42%] size-5 rotate-45 text-white/50 [&>svg]:size-5 [&>svg]:stroke-[3]"
-    set:html={IconX}
-  />
+  {
+    circles.map((c) => (
+      <span
+        class="pointer-events-none absolute rounded-full border-2"
+        style={`left:${c.x}%; top:${c.y}%; width:${c.size}%; aspect-ratio:1; transform: translate(-50%, -50%); border-color: rgba(255,255,255,${c.opacity});`}
+      />
+    ))
+  }
 </section>
