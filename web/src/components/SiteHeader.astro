@@ -4,6 +4,8 @@ import IconWebmail from '../assets/icons/webmail.svg'
 import IconAreaDelCliente from '../assets/icons/area-del-cliente.svg'
 import IconArrowDiagonal from '../assets/icons/arrow-diagonal.svg'
 import IconDropdown from '../assets/icons/navmenu-dropdown.svg'
+import IconMenu from 'lucide-static/icons/menu.svg?raw'
+import IconX from 'lucide-static/icons/x.svg?raw'
 
 const planesLinks = [
   { label: 'Planes por Fibra Óptica', href: '/planes-por-fibra-optica/' },
@@ -24,13 +26,15 @@ const navLinks = [
 const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola, quiero contratar un plan de Sol Internet')}`
 ---
 
-<header class="flex flex-col items-center justify-center bg-white py-4">
+<header class="relative flex flex-col items-center justify-center bg-white py-4">
+  <input type="checkbox" id="mobile-menu-toggle" class="peer sr-only" />
+
   <div class="flex w-full max-w-[1216px] flex-col gap-4 px-4">
     <div class="flex items-center justify-between">
-      <a href="/" class="block h-16 w-[195px]">
+      <a href="/" class="block h-16 w-[160px] lg:w-[195px]">
         <img src={LogoSolInternet.src} alt="Sol Internet" class="h-full w-full" />
       </a>
-      <div class="flex items-center justify-end gap-4">
+      <div class="hidden items-center justify-end gap-4 lg:flex">
         <a href="/area-del-cliente" class="flex items-center gap-2 px-4 py-2.5">
           <img src={IconAreaDelCliente.src} alt="" class="size-5" />
           <span class="font-franklin-medium text-base tracking-[-0.32px] text-black">
@@ -44,8 +48,15 @@ const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola
           </span>
         </a>
       </div>
+      <label
+        for="mobile-menu-toggle"
+        aria-label="Abrir menú"
+        class="flex size-11 items-center justify-center rounded-full border border-[#e6e6e6] text-[#181818] [&>svg]:size-6 lg:hidden"
+      >
+        <Fragment set:html={IconMenu} />
+      </label>
     </div>
-    <div class="flex items-center justify-between">
+    <div class="hidden items-center justify-between lg:flex">
       <nav class="flex items-center justify-center gap-10">
         {
           navLinks.map((link) =>
@@ -86,6 +97,73 @@ const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola
       >
         Contratar ahora
         <img src={IconArrowDiagonal.src} alt="" class="size-6" />
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="invisible fixed inset-0 z-50 flex opacity-0 transition-opacity duration-200 peer-checked:visible peer-checked:opacity-100 lg:hidden"
+  >
+    <label for="mobile-menu-toggle" aria-label="Cerrar menú" class="absolute inset-0 bg-black/40">
+    </label>
+    <div class="relative ml-auto flex h-full w-[85%] max-w-[360px] flex-col gap-2 bg-white p-6 shadow-xl">
+      <div class="mb-4 flex items-center justify-between">
+        <img src={LogoSolInternet.src} alt="Sol Internet" class="h-12 w-[130px]" />
+        <label
+          for="mobile-menu-toggle"
+          aria-label="Cerrar menú"
+          class="flex size-11 items-center justify-center rounded-full border border-[#e6e6e6] text-[#181818] [&>svg]:size-6"
+        >
+          <Fragment set:html={IconX} />
+        </label>
+      </div>
+
+      <nav class="flex flex-col gap-1">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="rounded-xl px-3 py-3 font-sans text-lg tracking-[-0.32px] text-black"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+        <div class="flex flex-col gap-1 pl-6">
+          {
+            planesLinks.map((p) => (
+              <a
+                href={p.href}
+                class="rounded-xl px-3 py-2 font-sans text-base tracking-[-0.32px] text-[#808080]"
+              >
+                {p.label}
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+
+      <div class="my-2 h-px w-full bg-[#e6e6e6]" />
+
+      <a href="/area-del-cliente" class="flex items-center gap-3 rounded-xl px-3 py-3">
+        <img src={IconAreaDelCliente.src} alt="" class="size-5" />
+        <span class="font-franklin-medium text-base tracking-[-0.32px] text-black">
+          Área del cliente
+        </span>
+      </a>
+      <a href="https://webmail.sol.com.py" class="flex items-center gap-3 rounded-xl px-3 py-3">
+        <img src={IconWebmail.src} alt="" class="size-5" />
+        <span class="font-franklin-medium text-base tracking-[-0.32px] text-black">
+          acceso webmail
+        </span>
+      </a>
+
+      <a
+        href={whatsappHref}
+        class="font-franklin-medium mt-4 flex items-center justify-center gap-2.5 rounded-[35px] bg-[#25d366] px-8 py-4 text-base tracking-[-0.32px] text-white"
+      >
+        Contratar ahora
+        <img src={IconArrowDiagonal.src} alt="" class="size-6 invert" />
       </a>
     </div>
   </div>
