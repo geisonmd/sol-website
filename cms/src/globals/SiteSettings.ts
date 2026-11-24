@@ -1,7 +1,16 @@
 import type { GlobalConfig } from 'payload'
 
+import { triggerRebuild } from '../lib/triggerRebuild'
+
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
+  hooks: {
+    afterChange: [
+      () => {
+        void triggerRebuild('Site settings updated')
+      },
+    ],
+  },
   admin: {
     group: 'Configurações',
   },

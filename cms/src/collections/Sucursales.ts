@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '../fields/slug'
+import { rebuildHooks } from '../lib/triggerRebuild'
 
 export const Sucursales: CollectionConfig = {
   slug: 'sucursales',
@@ -8,6 +9,7 @@ export const Sucursales: CollectionConfig = {
     singular: 'Sucursal',
     plural: 'Sucursales',
   },
+  hooks: rebuildHooks('Sucursal'),
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'city', 'callCenterPhone'],

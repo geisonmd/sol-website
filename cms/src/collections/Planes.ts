@@ -1,9 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '../fields/slug'
+import { rebuildHooks } from '../lib/triggerRebuild'
 
 export const Planes: CollectionConfig = {
   slug: 'planes',
+  hooks: rebuildHooks('Plan'),
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'tipo', 'categoriaFibra', 'download', 'upload', 'priceUSD'],

@@ -1,7 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
+import { rebuildHooks } from '../lib/triggerRebuild'
+
 export const Depoimentos: CollectionConfig = {
   slug: 'depoimentos',
+  hooks: rebuildHooks('Depoimento'),
   admin: {
     useAsTitle: 'clientName',
     defaultColumns: ['clientName', 'city', 'yearsAsClient'],

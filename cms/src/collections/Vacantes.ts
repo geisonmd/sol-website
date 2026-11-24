@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '../fields/slug'
+import { rebuildHooks } from '../lib/triggerRebuild'
 
 const toggleableSection = (name: string, label: string, defaultEnabled = true) => ({
   name,
@@ -30,6 +31,7 @@ export const Vacantes: CollectionConfig = {
     singular: 'Vacante',
     plural: 'Vacantes',
   },
+  hooks: rebuildHooks('Vacante'),
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'city', 'employmentType', 'isOpen', 'publishedAt'],

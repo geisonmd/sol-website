@@ -1,0 +1,63 @@
+name: Rebuild & deploy Astro site
+
+on:
+  repository_dispatch:
+    types: [payload-content-changed]
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/rebuild.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          PAYLOAD_URL: ${{ vars.PAYLOAD_URL || 'https://cms.sol.com.py' }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-dist
+          path: web/dist
+          retention-days: 7
+
+      # Deploys over SSH/rsync once the production server is set up.
+      # Configure these repo secrets when the cPanel deploy happens:
+      #   DEPLOY_HOST, DEPLOY_USER, DEPLOY_SSH_KEY, DEPLOY_PATH (and
+      #   optionally DEPLOY_PORT, default 22). Until then this step is
+      #   skipped and the build above still runs and uploads an artifact,
+      #   so the workflow is safe to enable right away.
+      - name: Deploy over rsync/SSH
+        if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$DEPLOY_PORT" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          rsync -az --delete \
+            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"

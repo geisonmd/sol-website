@@ -1,9 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
 import { slugField } from '../fields/slug'
+import { rebuildHooks } from '../lib/triggerRebuild'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  hooks: rebuildHooks('Post'),
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'author', 'publishedAt', '_status'],
