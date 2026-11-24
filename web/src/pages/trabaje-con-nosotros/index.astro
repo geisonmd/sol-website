@@ -6,7 +6,25 @@ import PageHero from '../../components/PageHero.astro'
 import BeneficiosLaborales from '../../components/trabaje/BeneficiosLaborales.astro'
 import ProcesoContratacion from '../../components/trabaje/ProcesoContratacion.astro'
 import Sucursales from '../../components/Sucursales.astro'
+import VacanteCard from '../../components/trabaje/VacanteCard.astro'
 import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import { fetchCollection } from '../../lib/payload'
+
+interface Vacante {
+  id: number
+  title: string
+  slug: string
+  featuredImage?: { url?: string | null } | null
+  city?: { name: string } | null
+  workMode?: 'presencial' | 'remoto' | 'hibrido' | null
+  employmentType?: 'efectivo' | 'temporal' | 'pasantia' | 'freelance' | null
+  isOpen?: boolean | null
+}
+
+const vacantes = await fetchCollection<Vacante>('vacantes', {
+  'where[isOpen][equals]': 'true',
+  sort: '-publishedAt',
+})
 
 const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola, quiero enviar mi CV para trabajar en Sol Internet')}`
 ---
@@ -26,6 +44,20 @@ const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent('Hola
           Vacancias disponibles
         </p>
       </div>
+      {
+        vacantes.length > 0 ? (
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {vacantes.map((vacante) => (
+              <VacanteCard vacante={vacante} />
+            ))}
+          </div>
+        ) : (
+          <p class="font-sans text-base text-[#808080]">
+            No tenemos vacancias abiertas en este momento, pero podés enviarnos tu CV para
+            futuras oportunidades.
+          </p>
+        )
+      }
       <div
         id="formulario-trabajo"
         class="relative flex flex-col items-start gap-6 overflow-hidden rounded-[32px] bg-[#fafafa] p-10 sm:flex-row sm:items-center sm:justify-between"

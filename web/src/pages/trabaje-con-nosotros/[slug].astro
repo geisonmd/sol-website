@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import Instagram from '../../assets/social/instagram.svg'
+import Facebook from '../../assets/social/facebook.svg'
+import Tiktok from '../../assets/social/tiktok.svg'
+import Youtube from '../../assets/social/youtube.svg'
+import { fetchCollection, fetchGlobal, mediaUrl } from '../../lib/payload'
+import { renderLexical } from '../../lib/lexical'
+
+interface ToggleableSection {
+  enabled?: boolean | null
+  content?: unknown
+}
+
+interface Vacante {
+  id: number
+  title: string
+  slug: string
+  featuredImage?: { url?: string | null } | null
+  publishedAt?: string | null
+  applicationDeadline?: string | null
+  isOpen?: boolean | null
+  city?: { name: string } | null
+  workMode?: 'presencial' | 'remoto' | 'hibrido' | null
+  employmentType?: 'efectivo' | 'temporal' | 'pasantia' | 'freelance' | null
+  pcdFriendly?: boolean | null
+  description?: ToggleableSection | null
+  responsibilities?: ToggleableSection | null
+  requirements?: ToggleableSection | null
+  additionalInfo?: ToggleableSection | null
+  hiringProcess?: { enabled?: boolean | null; steps?: { label: string }[] | null } | null
+  showCompanyInfo?: boolean | null
+  showRealTimeCTA?: boolean | null
+}
+
+interface SiteSettings {
+  companyBlurb?: unknown
+  socialLinks?: { platform: string; url: string }[]
+}
+
+export async function getStaticPaths() {
+  const vacantes = await fetchCollection<Vacante>('vacantes')
+  return vacantes.map((vacante) => ({ params: { slug: vacante.slug }, props: { vacante } }))
+}
+
+interface Props {
+  vacante: Vacante
+}
+const { vacante } = Astro.props
+
+const settings = await fetchGlobal<SiteSettings>('site-settings')
+
+const workModeLabel: Record<string, string> = {
+  presencial: 'Presencial',
+  remoto: 'Remoto',
+  hibrido: 'Híbrido',
+}
+const employmentTypeLabel: Record<string, string> = {
+  efectivo: 'Efectivo',
+  temporal: 'Temporal',
+  pasantia: 'Pasantía',
+  freelance: 'Freelance',
+}
+
+const defaultHiringSteps = [
+  'Envío de Curriculum',
+  'Confirmación y Entrevista',
+  'Entrevista Personal',
+  'Pre-Inducción',
+  'Contratación',
+]
+const hiringSteps =
+  vacante.hiringProcess?.enabled !== false && vacante.hiringProcess?.steps?.length
+    ? vacante.hiringProcess.steps.map((s) => s.label)
+    : vacante.hiringProcess?.enabled !== false
+      ? defaultHiringSteps
+      : []
+
+const sections = [
+  { label: 'Descripción de la vacante', data: vacante.description },
+  { label: 'Responsabilidades y atribuciones', data: vacante.responsibilities },
+  { label: 'Requisitos y calificaciones', data: vacante.requirements },
+  { label: 'Información adicional', data: vacante.additionalInfo },
+].filter((s) => s.data?.enabled !== false && s.data?.content)
+
+const defaultCompanyBlurb =
+  'Somos una de las mayores empresas de telecomunicaciones de la región, con más de 17 años conectando personas y generando oportunidades para una mejor humanidad.'
+const companyBlurbHtml = settings.companyBlurb
+  ? renderLexical(settings.companyBlurb)
+  : `<p>${defaultCompanyBlurb}</p>`
+
+const defaultSocials = [
+  { icon: Instagram, href: 'https://instagram.com/solinternetpy', label: 'Instagram' },
+  { icon: Facebook, href: 'https://facebook.com/solinternetpy', label: 'Facebook' },
+  { icon: Tiktok, href: 'https://tiktok.com/@solinternetpy', label: 'TikTok' },
+  { icon: Youtube, href: 'https://youtube.com/@solinternetpy', label: 'YouTube' },
+]
+
+const whatsappHref = `https://wa.me/595983550110?text=${encodeURIComponent(`Hola, me gustaría postularme para la vacante: ${vacante.title}`)}`
+---
+
+<BaseLayout title={vacante.title} description={`Vacante: ${vacante.title}`}>
+  <SiteHeader />
+
+  <section class="flex items-center justify-center bg-white">
+    <div class="flex w-full max-w-[900px] flex-col gap-6 px-4 py-16">
+      <a
+        href="/trabaje-con-nosotros/"
+        class="font-franklin-medium w-fit text-sm tracking-[-0.28px] text-[#ed8419]"
+      >
+        ← Volver a vacancias
+      </a>
+
+      {
+        vacante.isOpen === false && (
+          <div class="rounded-2xl bg-[#fafafa] px-6 py-4 font-sans text-sm text-[#808080]">
+            Esta vacante ya no está disponible, pero podés enviarnos tu CV para futuras
+            oportunidades.
+          </div>
+        )
+      }
+
+      <h1 class="font-sans text-4xl leading-[1.3] tracking-[-0.8px] text-black uppercase">
+        {vacante.title}
+      </h1>
+      <div class="flex flex-wrap items-center gap-2 font-sans text-base text-[#808080]">
+        {vacante.city?.name && <span>{vacante.city.name}</span>}
+        {vacante.workMode && <span>· {workModeLabel[vacante.workMode]}</span>}
+        {vacante.employmentType && <span>· {employmentTypeLabel[vacante.employmentType]}</span>}
+        {vacante.pcdFriendly && <span>· Vacante también para PcD</span>}
+      </div>
+      {
+        vacante.applicationDeadline && (
+          <p class="font-sans text-sm text-[#808080]">
+            Inscripciones abiertas hasta{' '}
+            {new Intl.DateTimeFormat('es-PY', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            }).format(new Date(vacante.applicationDeadline))}
+          </p>
+        )
+      }
+
+      {
+        vacante.featuredImage?.url && (
+          <img
+            src={mediaUrl(vacante.featuredImage)}
+            alt={vacante.title}
+            class="w-full rounded-3xl object-cover"
+          />
+        )
+      }
+
+      {
+        sections.map((section) => (
+          <div class="flex flex-col gap-3">
+            <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+              {section.label}
+            </p>
+            <div
+              class="post-content flex flex-col gap-3 font-sans text-base tracking-[-0.32px] text-black"
+              set:html={renderLexical(section.data?.content)}
+            />
+          </div>
+        ))
+      }
+
+      {
+        hiringSteps.length > 0 && (
+          <div class="flex flex-col gap-6 rounded-3xl bg-[#fafafa] p-8">
+            <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+              Etapas del proceso
+            </p>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {hiringSteps.map((label, i) => (
+                <div class="flex items-start gap-3">
+                  <span class="font-franklin-medium text-sm text-[#ed8419]">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p class="font-sans text-base tracking-[-0.32px] text-black">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <a
+        href={whatsappHref}
+        class="font-franklin-medium mt-2 flex w-fit items-center gap-2 rounded-[35px] bg-[#25d366] px-8 py-4 text-base tracking-[-0.32px] text-white"
+      >
+        Postularme a esta vacante
+        <img src={ArrowDiagonal.src} alt="" class="size-6 invert" />
+      </a>
+
+      {
+        vacante.showCompanyInfo !== false && (
+          <div class="mt-6 flex flex-col gap-3 rounded-3xl border border-[#e6e6e6] p-8">
+            <p class="font-franklin-medium text-base tracking-[-0.32px] text-black uppercase">
+              Sol Internet
+            </p>
+            <div
+              class="post-content flex flex-col gap-3 font-sans text-base tracking-[-0.32px] text-[#808080]"
+              set:html={companyBlurbHtml}
+            />
+          </div>
+        )
+      }
+
+      {
+        vacante.showRealTimeCTA !== false && (
+          <div class="flex flex-col items-start gap-4 rounded-3xl bg-[#181818] p-8">
+            <p class="font-sans text-xl tracking-[-0.4px] text-white">
+              ¿Querés ver a Sol Internet en tiempo real?
+            </p>
+            <div class="flex items-center gap-3">
+              {(settings.socialLinks?.length
+                ? settings.socialLinks.map((s) => ({
+                    href: s.url,
+                    label: s.platform,
+                    icon: defaultSocials.find(
+                      (d) => d.label.toLowerCase() === s.platform.toLowerCase(),
+                    )?.icon,
+                  }))
+                : defaultSocials
+              ).map(
+                (s) =>
+                  s.icon && (
+                    <a
+                      href={s.href}
+                      aria-label={s.label}
+                      class="flex size-10 items-center justify-center rounded-full bg-[#ffb200]"
+                    >
+                      <img src={s.icon.src} alt="" class="size-5" />
+                    </a>
+                  ),
+              )}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .post-content :global(img) {
+    border-radius: 24px;
+    max-width: 100%;
+  }
+  .post-content :global(a) {
+    color: #ed8419;
+    text-decoration: underline;
+  }
+</style>

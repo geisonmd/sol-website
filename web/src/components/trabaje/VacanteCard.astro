@@ -1,0 +1,62 @@
+---
+import ArrowDiagonal from '../../assets/icons/arrow-diagonal.svg'
+import { mediaUrl } from '../../lib/payload'
+
+interface Vacante {
+  id: number
+  title: string
+  slug: string
+  featuredImage?: { url?: string | null } | null
+  city?: { name: string } | null
+  workMode?: 'presencial' | 'remoto' | 'hibrido' | null
+  employmentType?: 'efectivo' | 'temporal' | 'pasantia' | 'freelance' | null
+}
+
+interface Props {
+  vacante: Vacante
+}
+const { vacante } = Astro.props
+
+const workModeLabel: Record<string, string> = {
+  presencial: 'Presencial',
+  remoto: 'Remoto',
+  hibrido: 'Híbrido',
+}
+const employmentTypeLabel: Record<string, string> = {
+  efectivo: 'Efectivo',
+  temporal: 'Temporal',
+  pasantia: 'Pasantía',
+  freelance: 'Freelance',
+}
+---
+
+<a
+  href={`/trabaje-con-nosotros/${vacante.slug}/`}
+  class="flex flex-col overflow-hidden rounded-3xl border border-[#e6e6e6] bg-white"
+>
+  <div class="aspect-square w-full bg-[#fafafa]">
+    {
+      vacante.featuredImage?.url && (
+        <img
+          src={mediaUrl(vacante.featuredImage)}
+          alt={vacante.title}
+          class="h-full w-full object-cover"
+        />
+      )
+    }
+  </div>
+  <div class="flex flex-col gap-3 p-6">
+    <p class="font-franklin-medium text-lg tracking-[-0.36px] text-black uppercase">
+      {vacante.title}
+    </p>
+    <div class="flex flex-wrap items-center gap-2 font-sans text-sm text-[#808080]">
+      {vacante.city?.name && <span>{vacante.city.name}</span>}
+      {vacante.workMode && <span>· {workModeLabel[vacante.workMode]}</span>}
+      {vacante.employmentType && <span>· {employmentTypeLabel[vacante.employmentType]}</span>}
+    </div>
+    <span class="flex items-center gap-2 font-franklin-medium text-sm text-[#ed8419]">
+      Ver vacante
+      <img src={ArrowDiagonal.src} alt="" class="size-4" />
+    </span>
+  </div>
+</a>
