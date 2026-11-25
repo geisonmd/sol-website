@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import PlanFinderWidget from '../components/PlanFinderWidget.astro'
 
 interface Props {
   title: string
@@ -26,5 +27,6 @@ const { title, description } = Astro.props
   </head>
   <body class="min-h-screen bg-white font-sans text-neutral-900">
     <slot />
+    <PlanFinderWidget />
   </body>
 </html>
