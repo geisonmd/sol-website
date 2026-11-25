@@ -12,4 +12,9 @@ Reconstrução do site sol.com.py.
 - [ ] Migração de conteúdo do WordPress: Pages (adiado — conteúdo novo vem do redesign em Figma).
 - [x] Frontend em Astro — todas as páginas do inventário do Figma construídas (Home, Planes, Trabaje con nosotros + vacantes, Quienes Somos, Contacto, Sol Play, Utilidades, Blog, Gracias, 404), menu mobile incluído.
 - [x] Webhook de rebuild: hooks do Payload (`cms/src/lib/triggerRebuild.ts`) disparam um `repository_dispatch` no GitHub, pego pela Action em `.github/workflows/rebuild.yml`. Falta só configurar `GITHUB_DISPATCH_TOKEN` no CMS e os secrets de deploy (`DEPLOY_*` + variável `DEPLOY_ENABLED=true`) quando o deploy em produção acontecer.
-- [ ] Buscador de planos conversacional com IA (Claude).
+- [x] Buscador de planos conversacional com IA: bolha de chat flutuante no site (`web/src/components/PlanFinderWidget.astro`) conversando com um endpoint Claude Haiku 5.5 em `cms/src/app/api/plan-finder`, que recomenda planos reais do catálogo atual. Falta só configurar `ANTHROPIC_API_KEY` no CMS para ativar (sem ela, o endpoint responde 503 de forma limpa).
+
+## Para ativar no deploy
+
+- `cms/.env`: `GITHUB_DISPATCH_TOKEN` (+ `GITHUB_DISPATCH_REPO`) para o webhook de rebuild, e `ANTHROPIC_API_KEY` para o buscador de planos.
+- Repo GitHub: variável `DEPLOY_ENABLED=true` e os secrets `DEPLOY_HOST`/`DEPLOY_USER`/`DEPLOY_SSH_KEY`/`DEPLOY_PATH` para o passo de deploy em `.github/workflows/rebuild.yml`.
